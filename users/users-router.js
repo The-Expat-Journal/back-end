@@ -32,12 +32,11 @@ router.get('/:id', (req, res) => {
     Users.findById(id).then(user =>{
       Users.findStories(id)
           .then(stories => {
-              if (stories.length) {
+     
                   user.stories = stories;
                   res.status(200).json(user);
-              } else {
-                  res.status(404).json({message: "Could not retrieve"})
-              }
+   
+              
           })
     })
 });
