@@ -29,18 +29,6 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/', (req, res) => {
-    const photoInfo = req.body;
-
-    Photos.add(photoInfo)
-        .then(photo => {
-            res.status(201).json(photo);
-        })
-        .catch(error => {
-            res.status(500).json({message: "Failed to add photo"})
-        })
-});
-
 router.put('/:id', (req, res) => {
     const photoUpdates = req.body;
     const {id} = req.params;
