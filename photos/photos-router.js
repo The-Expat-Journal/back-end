@@ -38,7 +38,7 @@ router.put('/:id', (req, res) => {
             if(photo) {
                 Photos.update(photoUpdates, id)
                     .then(updatedPhoto => {
-                        res.json(updatedPhoto);
+                        res.status(201).json(updatedPhoto);
                     });
             } else {
                 res.status(404).json({message: "Could not find photo with given id"})

@@ -23,12 +23,8 @@ router.get('/:id', (req, res) => {
     Stories.findById(id).then(story =>{
       Stories.findPhotos(id)
           .then(photos => {
-              if (photos.length) {
-                  user.photos = photos;
-                  res.status(201).json(story);
-              } else {
-                  res.status(404).json({message: "Could not retrieve"})
-              }
+            story.photos = photos;
+            res.status(200).json(story);
           })
     })
   })
