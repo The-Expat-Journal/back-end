@@ -117,3 +117,4 @@ dist
 
 # SQLite3 Databases
 *.db3
+node_modules

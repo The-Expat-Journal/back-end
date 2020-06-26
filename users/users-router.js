@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
           .then(stories => {
               if (stories.length) {
                   user.stories = stories;
-                  res.status(201).json(user);
+                  res.status(200).json(user);
               } else {
                   res.status(404).json({message: "Could not retrieve"})
               }

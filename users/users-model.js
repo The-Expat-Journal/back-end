@@ -60,3 +60,4 @@ function remove(id){
   .delete()
   .where({id});
 }
+
