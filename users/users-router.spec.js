@@ -1,7 +1,10 @@
 const db = require('../database/knex-setup.js');
 const request = require('supertest');
 const server = require('../api/server.js');
+
+
 let token = '';
+
 beforeAll((done) => {
     request(server)
         .post('/api/auth/register')
@@ -54,7 +57,7 @@ describe('GET /', () => {
     })
     it ('should respond with stories for user by id', () => {
         return request(server)
-            .get('/api/users/4/stories')
+            .get('/api/users/:id/stories')
             .set('Authorization', `${token}`)
             .then((res) => {
                 expect(res.statusCode).toBe(201);
@@ -62,34 +65,49 @@ describe('GET /', () => {
             });
     })
 });
-
-describe('POST /', () => {
-    it('should add story to user by id', (done) => {
-        return request(server)
-            .post('/api/users/4/stories')
-            .send({
-                story_name: "France",
-                story_description: "My trip to France was amazing"
-            })
-            .set('Authorization', `${token}`)
-            .expect('Content-Type', /json/)
-            .expect(201)
-            .end((err, res) => {
-                if (err) return done(err);
-                done();
-            })
-    });
-});
-
-describe('DELETE /', () => {
-    it ('should delete user', (done) => {
-        return request(server)
-            .delete('/api/users/4')
-            .set('Authorization', `${token}`)
-            .expect(200)
-            .end((err, res) => {
-                if (err) return done(err);
-                done();
-            })
-    });
-});
+//
+// describe('POST /', () => {
+//     it('should require authorization', () => {
+//         return request(server)
+//             .post('/')
+//             .then((res) => {
+//                 expect(res.statusCode).toBe(401);
+//             });
+//     });
+//     it('should add story to user by id', (done) => {
+//         return request(server)
+//             .post('/:id/stories')
+//             .send({
+//                 story_name: "France",
+//                 story_description: "My trip to France was amazing"
+//             })
+//             .set('Authorization', `${token}`)
+//             .then((res) => {
+//                 expect(res.statusCode).toBe(201)
+//                 expect(res.type).toBe('application/json')
+//             })
+//             .end((err, res) => {
+//                 if (err) return done(err);
+//                 done();
+//             });
+//     });
+// });
+//
+// describe('DELETE /', () => {
+//     it('should require authorization', () => {
+//         return request(server)
+//             .delete('/')
+//             .then((res) => {
+//                 expect(res.statusCode).toBe(401);
+//             });
+//     });
+//     it ('should delete user', () => {
+//         return request(server)
+//             .delete('/:id')
+//             .set('Authorization', `Bearer ${token}`)
+//             .then((res) => {
+//                 expect(res.statusCode).toBe(200);
+//                 expect(res.type).toBe('application/json');
+//             });
+//     });
+// });
